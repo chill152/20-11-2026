@@ -8,48 +8,33 @@
   <style>
     :root {
       --paper-bg: #f6f3ec;
-      --pencil-stroke: #2c2a29;
-      --gold-accent: #c59b27;
-      --lotus-pink: rgba(232, 145, 165, 0.35);
-      --hat-tint: rgba(218, 195, 154, 0.25);
+      --pencil-stroke: #262423;
+      --lotus-pink: rgba(232, 145, 165, 0.38);
+      --hat-tint: rgba(218, 195, 154, 0.28);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
 
     body, html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      width: 100%; height: 100%; overflow: hidden;
       background-color: #161e1a;
       font-family: 'Cormorant Garamond', serif;
     }
 
-    /* LỚP 1: KHUNG TÂM THƯ & BỨC VẼ CÔ GIÁO */
+    /* TẦNG ĐÁY: KHUNG GIẤY & TÂM THƯ */
     .stage-container {
       position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at center, #fdfbf7 0%, #e6dec8 100%);
-      padding: 20px;
-      z-index: 1;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle at center, #fdfbf7 0%, #e4dbc3 100%);
+      padding: 20px; z-index: 1;
     }
 
-    /* Hiệu ứng bóng nắng đung đưa nhẹ */
     .sunlight-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 25% 20%, rgba(255, 238, 190, 0.45) 0%, transparent 55%);
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 25% 20%, rgba(255, 238, 190, 0.5) 0%, transparent 55%);
       animation: sunSway 9s ease-in-out infinite alternate;
-      pointer-events: none;
-      z-index: 2;
+      pointer-events: none; z-index: 2;
     }
 
     @keyframes sunSway {
@@ -59,48 +44,38 @@
 
     .card-frame {
       position: relative;
-      width: 100%;
-      max-width: 1020px;
-      height: 88vh;
-      max-height: 760px;
+      width: 100%; max-width: 1050px;
+      height: 88vh; max-height: 760px;
       background-color: var(--paper-bg);
-      background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
-      background-size: 24px 24px;
+      background-image: radial-gradient(rgba(0,0,0,0.035) 1px, transparent 0);
+      background-size: 22px 22px;
       border-radius: 12px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.35), inset 0 0 40px rgba(180, 160, 120, 0.25);
-      border: 1px solid rgba(197, 155, 39, 0.35);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.38), inset 0 0 40px rgba(180, 160, 120, 0.25);
+      border: 1px solid rgba(197, 155, 39, 0.4);
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      overflow: hidden;
-      z-index: 3;
+      grid-template-columns: 1.05fr 1.15fr;
+      overflow: hidden; z-index: 3;
       transform: scale(0.97);
-      transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .card-frame.is-revealed {
-      transform: scale(1);
-    }
+    .card-frame.is-revealed { transform: scale(1); }
 
-    /* CỘT TRÁI: VÙNG VẼ CÔ GIÁO & 20/11 */
+    /* CỘT TRÁI: VÙNG VẼ CÔ GIÁO BẰNG BÚT CHÌ */
     .art-column {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 10px 20px 25px;
-      border-right: 1px dashed rgba(44, 42, 41, 0.15);
+      display: flex; align-items: center; justify-content: center;
+      padding: 15px;
+      border-right: 1px dashed rgba(44, 42, 41, 0.18);
     }
 
     .sketch-svg {
-      width: 100%;
-      height: 100%;
-      max-height: 680px;
+      width: 100%; height: 100%; max-height: 690px;
       overflow: visible;
-      filter: url(#pencil-texture);
     }
 
-    /* Cấu hình nét vẽ chì giống ảnh gốc */
+    .sketch-group { filter: url(#pencil-texture); }
+
     .sketch-path {
       fill: none;
       stroke: var(--pencil-stroke);
@@ -109,166 +84,124 @@
       stroke-width: 2.3;
     }
 
-    .sketch-path.thin {
-      stroke-width: 1.45;
-      stroke: #454240;
-    }
+    .sketch-path.thin { stroke-width: 1.45; stroke: #484543; }
+    .sketch-path.bold { stroke-width: 2.85; }
+    .sketch-path.gold { stroke: #8c622b; stroke-width: 2.6; }
 
-    .sketch-path.bold {
-      stroke-width: 3;
-    }
-
-    /* Lớp màu nước điểm xuyết nhẹ sau khi vẽ xong */
+    /* Lớp màu nước nhẹ hiện lên sau khi vẽ xong */
     .color-tint {
       opacity: 0;
-      transition: opacity 2s ease 3.2s;
+      transition: opacity 1.8s ease;
+    }
+    .color-tint.show-color { opacity: 1; }
+
+    /* CON TRỎ BÀN TAY CẦM BÚT CHÌ ĐANG VẼ */
+    #drawing-hand {
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+      filter: drop-shadow(4px 8px 6px rgba(0,0,0,0.28));
     }
 
-    .card-frame.is-revealed .color-tint {
-      opacity: 1;
-    }
-
-    /* CỘT PHẢI: TÂM THƯ TRI ÂN */
+    /* CỘT PHẢI: TÂM THƯ ĐỘNG */
     .letter-column {
-      padding: 45px 50px 35px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
+      padding: 40px 48px 35px 40px;
+      display: flex; flex-direction: column; justify-content: center;
     }
 
     .letter-title {
       font-family: 'Dancing Script', cursive;
-      font-size: 2.5rem;
-      color: #7a5221;
-      margin-bottom: 22px;
-      opacity: 0;
-      transform: translateY(15px);
-      filter: blur(6px);
+      font-size: 2.5rem; color: #7a5221;
+      margin-bottom: 20px;
+      opacity: 0; transform: translateY(15px); filter: blur(6px);
       transition: all 1.1s ease;
     }
 
     .letter-paragraph {
-      font-size: 1.22rem;
-      line-height: 1.78;
-      color: #2c2623;
-      margin-bottom: 18px;
-      text-align: justify;
-      opacity: 0;
-      transform: translateY(15px);
-      filter: blur(6px);
-      transition: all 1.2s ease;
+      font-size: 1.2rem; line-height: 1.76; color: #2c2623;
+      margin-bottom: 16px; text-align: justify;
+      opacity: 0; transform: translateY(15px); filter: blur(6px);
+      transition: all 1.1s ease;
     }
 
     .highlight-quote {
-      background: linear-gradient(120deg, rgba(255, 223, 128, 0.45) 0%, rgba(255, 223, 128, 0.45) 100%);
+      background: linear-gradient(120deg, rgba(255, 223, 128, 0.5) 0%, rgba(255, 223, 128, 0.5) 100%);
       background-repeat: no-repeat;
       background-size: 0% 100%;
-      transition: background-size 1.4s ease 4.8s;
-      padding: 0 4px;
-      border-radius: 3px;
-      font-weight: 600;
+      transition: background-size 1.4s ease 1.5s;
+      padding: 0 5px; border-radius: 3px; font-weight: 600;
     }
 
-    /* Kích hoạt chuỗi animation chữ khi lau xong bảng */
-    .card-frame.is-revealed .letter-title {
-      opacity: 1; transform: translateY(0); filter: blur(0);
-      transition-delay: 1.2s;
-    }
-    .card-frame.is-revealed .p-1 {
-      opacity: 1; transform: translateY(0); filter: blur(0);
-      transition-delay: 2.1s;
-    }
-    .card-frame.is-revealed .p-2 {
-      opacity: 1; transform: translateY(0); filter: blur(0);
-      transition-delay: 3.1s;
-    }
-    .card-frame.is-revealed .p-3 {
-      opacity: 1; transform: translateY(0); filter: blur(0);
-      transition-delay: 4.1s;
-    }
-    .card-frame.is-revealed .highlight-quote {
-      background-size: 100% 100%;
-    }
+    .letter-column.show-text .letter-title { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 0.1s; }
+    .letter-column.show-text .p-1 { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 0.6s; }
+    .letter-column.show-text .p-2 { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 1.2s; }
+    .letter-column.show-text .p-3 { opacity: 1; transform: translateY(0); filter: blur(0); transition-delay: 1.8s; }
+    .letter-column.show-text .highlight-quote { background-size: 100% 100%; }
 
     .signature-box {
-      margin-top: 15px;
-      align-self: flex-end;
-      text-align: right;
-      opacity: 0;
-      transition: opacity 1.2s ease 5.2s;
+      margin-top: 12px; align-self: flex-end; text-align: right;
+      opacity: 0; transition: opacity 1.2s ease 2.4s;
     }
-
-    .card-frame.is-revealed .signature-box {
-      opacity: 1;
-    }
+    .letter-column.show-text .signature-box { opacity: 1; }
 
     .signature-text {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.75rem;
-      color: #7a5221;
+      font-size: 1.75rem; color: #7a5221;
     }
 
-    .replay-btn {
-      margin-top: 22px;
-      align-self: flex-start;
+    .action-bar {
+      margin-top: 22px; display: flex; gap: 12px;
+      opacity: 0; transition: opacity 1s ease 2.8s;
+    }
+    .letter-column.show-text .action-bar { opacity: 1; }
+
+    .btn-action {
       background: transparent;
-      border: 1px solid #8c622b;
-      color: #7a5221;
-      padding: 8px 18px;
-      border-radius: 25px;
+      border: 1px solid #8c622b; color: #7a5221;
+      padding: 8px 18px; border-radius: 25px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      opacity: 0;
-      transition: all 0.4s ease, opacity 1s ease 5.8s;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease;
     }
+    .btn-action:hover { background: #8c622b; color: #fff; }
 
-    .card-frame.is-revealed .replay-btn {
-      opacity: 1;
-    }
-
-    .replay-btn:hover {
-      background: #8c622b;
-      color: #fff;
-    }
-
-    /* LỚP 2 & 3: CANVAS BỤI PHẤN & HẠT SÁNG */
+    /* TẦNG TRÊN: CANVAS BẢNG ĐEN & KHĂN LAU BẢNG THẬT */
     #scratch-canvas, #particle-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
+      position: fixed; inset: 0;
+      width: 100vw; height: 100vh;
       touch-action: none;
     }
+    #scratch-canvas { z-index: 10; cursor: none; transition: opacity 1.2s ease-out; }
+    #particle-canvas { z-index: 11; pointer-events: none; }
 
-    #scratch-canvas {
-      z-index: 10;
-      cursor: crosshair;
-      transition: opacity 1.5s ease-out;
-    }
-
-    #particle-canvas {
-      z-index: 11;
-      pointer-events: none;
-    }
-
-    /* Hướng dẫn chạm trên mặt bảng */
-    .chalk-prompt {
+    /* Chiếc khăn lau bảng gỗ di chuyển theo tay */
+    #chalk-eraser {
       position: fixed;
-      z-index: 12;
-      bottom: 8%;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.85);
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.65rem;
-      text-align: center;
+      width: 110px; height: 54px;
+      background: linear-gradient(to bottom, #8d5524 0%, #6e3f17 65%, #3d3d3d 65%, #e8e8e8 92%, #ffffff 100%);
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.3);
       pointer-events: none;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      animation: pulsePrompt 2.2s infinite ease-in-out;
-      transition: opacity 0.8s ease;
+      z-index: 15;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      transition: transform 0.08s ease-out, opacity 0.5s ease;
+      opacity: 0;
+    }
+    #chalk-eraser::after {
+      content: ''; position: absolute;
+      top: 12px; left: 10px; right: 10px; height: 14px;
+      border-radius: 3px; background: rgba(0,0,0,0.18);
+    }
+
+    .chalk-prompt {
+      position: fixed; z-index: 12;
+      bottom: 7%; left: 50%; transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: 'Dancing Script', cursive; font-size: 1.65rem;
+      text-align: center; pointer-events: none;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      animation: pulsePrompt 2s infinite ease-in-out;
+      transition: opacity 0.6s ease;
     }
 
     @keyframes pulsePrompt {
@@ -276,201 +209,161 @@
       50% { opacity: 1; transform: translateX(-50%) scale(1.03); }
     }
 
-    /* Tương thích màn hình điện thoại */
     @media (max-width: 768px) {
       .card-frame {
         grid-template-columns: 1fr;
-        grid-template-rows: 46% 54%;
-        height: 94vh;
-        max-height: none;
+        grid-template-rows: 50% 50%;
+        height: 94vh; max-height: none;
       }
-      .art-column {
-        border-right: none;
-        border-bottom: 1px dashed rgba(44, 42, 41, 0.15);
-        padding: 10px;
-      }
-      .letter-column {
-        padding: 20px 24px;
-        justify-content: flex-start;
-        overflow-y: auto;
-      }
-      .letter-title { font-size: 1.9rem; margin-bottom: 10px; }
-      .letter-paragraph { font-size: 1.05rem; line-height: 1.55; margin-bottom: 10px; }
-      .chalk-prompt { font-size: 1.3rem; width: 90%; }
+      .art-column { border-right: none; border-bottom: 1px dashed rgba(44, 42, 41, 0.15); padding: 8px; }
+      .letter-column { padding: 18px 22px; justify-content: flex-start; overflow-y: auto; }
+      .letter-title { font-size: 1.85rem; margin-bottom: 8px; }
+      .letter-paragraph { font-size: 1.02rem; line-height: 1.52; margin-bottom: 8px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LỚP 1: NỘI DUNG TÂM THƯ & BỨC VẼ CÔ GIÁO -->
+  <!-- LỚP 1: NỘI DUNG TÂM THƯ & BỨC VẼ CÔ GIÁO ĐỦ 2 TAY -->
   <div class="stage-container">
     <div class="sunlight-overlay"></div>
 
     <div class="card-frame" id="cardFrame">
-      <!-- CỘT TRÁI: SVG TÁI HIỆN BỨC VẼ CÔ GIÁO & 20/11 -->
+      <!-- CỘT TRÁI: SVG VẼ CÔ GIÁO + HIỆU ỨNG BÀN TAY CẦM BÚT CHÌ -->
       <div class="art-column">
         <svg class="sketch-svg" viewBox="0 0 420 680" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <!-- Bộ lọc tạo độ nhám nét chì trên giấy giống hệt bức ảnh -->
+            <!-- Bộ lọc nét chì nhám trên giấy -->
             <filter id="pencil-texture" x="-5%" y="-5%" width="110%" height="110%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.65" xChannelSelector="R" yChannelSelector="G" />
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
             </filter>
           </defs>
 
-          <!-- LỚP ĐIỂM MÀU NHẸ SAU KHI VẼ XONG -->
-          <g class="color-tint">
-            <!-- Màu hồng phấn nhẹ trên các búp sen -->
+          <!-- MÀU NƯỚC ĐIỂM XUYẾT SAU KHI VẼ XONG -->
+          <g class="color-tint" id="colorTint">
             <path d="M 294 268 C 282 243, 294 220, 323 200 C 330 227, 324 252, 294 268 Z" fill="var(--lotus-pink)" />
             <path d="M 322 308 C 318 282, 333 263, 358 250 C 362 278, 350 302, 322 308 Z" fill="var(--lotus-pink)" />
             <path d="M 330 342 C 332 321, 348 310, 367 308 C 369 328, 355 344, 330 342 Z" fill="var(--lotus-pink)" />
             <path d="M 297 309 C 292 325, 304 334, 319 327 C 324 316, 311 304, 297 309 Z" fill="var(--lotus-pink)" />
-            <!-- Sắc nắng nhẹ trên nón lá -->
             <path d="M 135 62 L 82 205 C 145 150, 232 108, 286 86 Z" fill="var(--hat-tint)" />
           </g>
 
-          <!-- NHÓM 1: NÓN LÁ NGHIÊNG DUYÊN DÁNG -->
-          <!-- Hai cạnh chóp nón -->
-          <path class="sketch-path bold" data-delay="0" data-duration="0.7"
-                d="M 135 62 L 82 205" />
-          <path class="sketch-path bold" data-delay="0.2" data-duration="0.7"
-                d="M 135 62 L 286 86" />
-          <!-- Vành nón cong elip kép -->
-          <path class="sketch-path bold" data-delay="0.5" data-duration="0.9"
-                d="M 82 205 C 76 200, 128 158, 192 124 C 248 94, 290 79, 286 86 C 282 95, 265 110, 255 116" />
-          <path class="sketch-path thin" data-delay="0.7" data-duration="0.8"
-                d="M 89 207 C 134 166, 234 114, 279 94" />
-          <!-- Các vòng nan nón bên trong -->
-          <path class="sketch-path thin" data-delay="0.9" data-duration="0.6"
-                d="M 238 110 C 254 128, 250 155, 232 178" />
-          <path class="sketch-path thin" data-delay="1.0" data-duration="0.6"
-                d="M 252 103 C 266 125, 260 154, 240 182" />
-          <path class="sketch-path thin" data-delay="1.1" data-duration="0.6"
-                d="M 266 98 C 276 120, 268 152, 248 184" />
+          <!-- TOÀN BỘ NÉT VẼ CÔ GIÁO (ĐÃ BỔ SUNG ĐẦY ĐỦ CÁNH TAY PHẢI ÔM HOA) -->
+          <g class="sketch-group" id="sketchGroup">
+            <!-- 1. Nón lá nghiêng & các vòng nan -->
+            <path class="sketch-path bold" d="M 135 62 L 82 205" />
+            <path class="sketch-path bold" d="M 135 62 L 286 86" />
+            <path class="sketch-path bold" d="M 82 205 C 76 200, 128 158, 192 124 C 248 94, 290 79, 286 86 C 282 95, 265 110, 255 116" />
+            <path class="sketch-path thin" d="M 89 207 C 134 166, 234 114, 279 94" />
+            <path class="sketch-path thin" d="M 238 110 C 254 128, 250 155, 232 178" />
+            <path class="sketch-path thin" d="M 252 103 C 266 125, 260 154, 240 182" />
+            <path class="sketch-path thin" d="M 266 98 C 276 120, 268 152, 248 184" />
 
-          <!-- NHÓM 2: KHUÔN MẶT NGHIÊNG, QUAI NÓN & MÁI TÓC -->
-          <!-- Mái tóc rẽ ôm khuôn mặt -->
-          <path class="sketch-path" data-delay="1.1" data-duration="0.7"
-                d="M 162 146 C 198 152, 228 175, 233 200" />
-          <path class="sketch-path thin" data-delay="1.2" data-duration="0.6"
-                d="M 205 128 C 232 145, 244 170, 235 196" />
-          <!-- Đường viền khuôn mặt nghiêng thanh thoát -->
-          <path class="sketch-path bold" data-delay="1.2" data-duration="0.8"
-                d="M 157 148 C 142 176, 150 206, 185 210 C 215 213, 232 192, 235 168" />
-          <!-- Dây quai nón vắt ngang dưới cằm -->
-          <path class="sketch-path" data-delay="1.4" data-duration="0.6"
-                d="M 96 196 C 128 202, 162 209, 192 211" />
-          <path class="sketch-path thin" data-delay="1.5" data-duration="0.6"
-                d="M 92 202 C 126 208, 160 214, 194 214" />
-          <!-- Suối tóc xõa hai bên vai -->
-          <path class="sketch-path" data-delay="1.5" data-duration="0.7"
-                d="M 142 162 C 128 182, 126 205, 128 220" />
-          <path class="sketch-path" data-delay="1.6" data-duration="0.7"
-                d="M 127 204 C 134 228, 148 250, 162 262" />
-          <path class="sketch-path thin" data-delay="1.7" data-duration="0.6"
-                d="M 146 208 C 154 226, 164 242, 174 252" />
-          <path class="sketch-path" data-delay="1.6" data-duration="0.7"
-                d="M 262 112 C 258 148, 250 182, 235 206" />
-          <path class="sketch-path thin" data-delay="1.7" data-duration="0.7"
-                d="M 262 152 C 266 178, 274 202, 282 218" />
-          <path class="sketch-path thin" data-delay="1.8" data-duration="0.6"
-                d="M 248 188 C 248 204, 250 216, 253 224" />
-          <path class="sketch-path thin" data-delay="1.8" data-duration="0.6"
-                d="M 232 198 C 231 208, 231 218, 232 225" />
+            <!-- 2. Khuôn mặt nghiêng, quai nón & mái tóc xõa vai -->
+            <path class="sketch-path" d="M 162 146 C 198 152, 228 175, 233 200" />
+            <path class="sketch-path thin" d="M 205 128 C 232 145, 244 170, 235 196" />
+            <path class="sketch-path bold" d="M 157 148 C 142 176, 150 206, 185 210 C 215 213, 232 192, 235 168" />
+            <path class="sketch-path" d="M 96 196 C 128 202, 162 209, 192 211" />
+            <path class="sketch-path thin" d="M 92 202 C 126 208, 160 214, 194 214" />
+            <path class="sketch-path" d="M 142 162 C 128 182, 126 205, 128 220" />
+            <path class="sketch-path" d="M 127 204 C 134 228, 148 250, 162 262" />
+            <path class="sketch-path thin" d="M 146 208 C 154 226, 164 242, 174 252" />
+            <path class="sketch-path" d="M 262 112 C 258 148, 250 182, 235 206" />
+            <path class="sketch-path thin" d="M 262 152 C 266 178, 274 202, 282 218" />
+            <path class="sketch-path thin" d="M 248 188 C 248 204, 250 216, 253 224" />
 
-          <!-- NHÓM 3: CỔ ÁO DÀI TRUYỀN THỐNG & THÂN TRÊN -->
-          <!-- Cần cổ và cổ áo dài chữ V nhỏ -->
-          <path class="sketch-path" data-delay="1.8" data-duration="0.5"
-                d="M 186 211 C 190 220, 191 228, 189 235" />
-          <path class="sketch-path" data-delay="1.8" data-duration="0.5"
-                d="M 218 204 C 218 214, 220 222, 224 228" />
-          <path class="sketch-path" data-delay="1.9" data-duration="0.7"
-                d="M 186 232 C 196 228, 202 232, 204 242 C 209 243, 214 242, 216 238 C 216 228, 222 223, 229 224 C 234 229, 238 234, 240 237 C 231 245, 223 250, 218 252" />
-          <!-- Đường ráp lăng ngực áo dài -->
-          <path class="sketch-path thin" data-delay="2.0" data-duration="0.6"
-                d="M 186 234 C 181 245, 178 262, 177 282" />
-          <path class="sketch-path thin" data-delay="2.0" data-duration="0.6"
-                d="M 240 237 C 254 244, 270 256, 282 268" />
-          <!-- Bờ vai trái và cánh tay trái -->
-          <path class="sketch-path bold" data-delay="2.0" data-duration="0.8"
-                d="M 186 234 C 174 252, 152 256, 138 263 C 124 272, 126 296, 134 316 C 146 346, 162 378, 174 402 C 184 401, 196 394, 202 388" />
-          <!-- Cánh tay dưới bên trái xuôi về đan tay -->
-          <path class="sketch-path" data-delay="2.2" data-duration="0.8"
-                d="M 178 401 C 198 424, 228 450, 260 470" />
-          <path class="sketch-path" data-delay="2.2" data-duration="0.8"
-                d="M 200 390 C 218 415, 242 440, 268 458" />
-          <!-- Đường chiết ngực & eo áo dài bên trái -->
-          <path class="sketch-path bold" data-delay="2.1" data-duration="0.8"
-                d="M 164 294 C 174 300, 174 318, 173 336 C 172 356, 184 372, 206 378" />
-          <path class="sketch-path bold" data-delay="2.3" data-duration="0.6"
-                d="M 196 374 C 206 392, 211 410, 214 422" />
-          <!-- Bờ vai phải và cánh tay phải ôm hoa -->
-          <path class="sketch-path bold" data-delay="2.1" data-duration="0.8"
-                d="M 235 232 C 254 234, 274 224, 290 228 C 306 234, 308 252, 306 266" />
-          <path class="sketch-path" data-delay="2.3" data-duration="0.8"
-                d="M 326 342 C 316 378, 296 424, 276 462" />
-          <path class="sketch-path" data-delay="2.4" data-duration="0.8"
-                d="M 304 352 C 292 388, 278 424, 265 455" />
-          <!-- Đôi bàn tay đan nhẹ nâng bó hoa sen -->
-          <path class="sketch-path bold" data-delay="2.5" data-duration="0.6"
-                d="M 260 470 C 258 478, 260 484, 266 483 C 276 478, 282 468, 276 460 C 270 462, 264 466, 260 470 Z" />
+            <!-- 3. Cổ áo dài truyền thống & ráp lăng ngực -->
+            <path class="sketch-path" d="M 186 211 C 190 220, 191 228, 189 235" />
+            <path class="sketch-path" d="M 218 204 C 218 214, 220 222, 224 228" />
+            <path class="sketch-path bold" d="M 186 232 C 196 228, 202 232, 204 242 C 209 243, 214 242, 216 238 C 216 228, 222 223, 229 224 C 234 229, 238 234, 240 237 C 231 245, 223 250, 218 252" />
+            <path class="sketch-path thin" d="M 186 234 C 181 245, 178 262, 177 282" />
+            <path class="sketch-path thin" d="M 240 237 C 254 244, 270 256, 282 268" />
 
-          <!-- NHÓM 4: BÓ HOA SEN TRÊN TAY CÔ -->
-          <!-- Búp sen 1 (Cao nhất) -->
-          <path class="sketch-path bold" data-delay="2.4" data-duration="0.7"
-                d="M 294 268 C 282 243, 294 220, 323 200 C 330 227, 324 252, 294 268 Z" />
-          <!-- Búp sen 2 (Giữa phải) -->
-          <path class="sketch-path bold" data-delay="2.5" data-duration="0.7"
-                d="M 322 308 C 318 282, 333 263, 358 250 C 362 278, 350 302, 322 308 Z" />
-          <!-- Búp sen 3 (Dưới phải) -->
-          <path class="sketch-path bold" data-delay="2.6" data-duration="0.7"
-                d="M 330 342 C 332 321, 348 310, 367 308 C 369 328, 355 344, 330 342 Z" />
-          <!-- Đài sen nhỏ bên trong -->
-          <path class="sketch-path" data-delay="2.7" data-duration="0.6"
-                d="M 297 309 C 292 325, 304 334, 319 327 C 324 316, 311 304, 297 309 Z" />
-          <path class="sketch-path thin" data-delay="2.8" data-duration="0.4"
-                d="M 297 309 C 306 314, 314 320, 319 327" />
-          <!-- Cuống sen dài xuyên qua tay -->
-          <path class="sketch-path" data-delay="2.6" data-duration="0.8"
-                d="M 296 268 C 284 318, 278 392, 270 462" />
-          <path class="sketch-path" data-delay="2.7" data-duration="0.8"
-                d="M 322 308 C 305 358, 288 412, 273 462" />
-          <path class="sketch-path" data-delay="2.8" data-duration="0.8"
-                d="M 330 342 C 310 382, 292 425, 276 462" />
-          <path class="sketch-path thin" data-delay="2.8" data-duration="0.7"
-                d="M 306 330 C 294 374, 282 420, 271 460" />
-          <!-- Phần gốc cuống hoa phía dưới bàn tay -->
-          <path class="sketch-path" data-delay="2.9" data-duration="0.5"
-                d="M 275 478 L 281 498 M 280 475 L 288 494 M 284 472 L 292 489" />
+            <!-- 4. Cánh tay trái & Đường eo áo dài bên trái -->
+            <path class="sketch-path bold" d="M 186 234 C 174 252, 152 256, 138 263 C 124 272, 126 296, 134 316 C 146 346, 162 378, 174 402 C 184 401, 196 394, 202 388" />
+            <path class="sketch-path bold" d="M 164 294 C 174 300, 174 318, 173 336 C 172 356, 184 372, 206 378" />
+            <path class="sketch-path bold" d="M 196 374 C 206 392, 211 410, 214 422" />
+            <path class="sketch-path" d="M 178 401 C 198 424, 228 450, 260 470" />
+            <path class="sketch-path" d="M 200 390 C 218 415, 242 440, 268 458" />
 
-          <!-- NHÓM 5: TÀ ÁO DÀI THƯỚT THA & QUẦN LỤA -->
-          <!-- Tà trước bên trái, gấu áo và tà phải -->
-          <path class="sketch-path bold" data-delay="2.4" data-duration="1.2"
-                d="M 206 420 C 185 488, 162 578, 148 648 C 224 654, 304 655, 376 646 C 368 556, 352 464, 314 380" />
-          <!-- Tà sau bay nhẹ bên trái & ống quần lụa -->
-          <path class="sketch-path bold" data-delay="2.6" data-duration="1.1"
-                d="M 202 414 C 154 484, 96 558, 46 618 C 68 634, 92 645, 114 652" />
-          <path class="sketch-path" data-delay="2.7" data-duration="1.0"
-                d="M 205 418 C 166 492, 134 574, 112 666" />
-          <path class="sketch-path thin" data-delay="2.8" data-duration="0.7"
-                d="M 204 422 C 186 456, 168 492, 152 524" />
-          <!-- Nếp quần lụa phía dưới gấu áo -->
-          <path class="sketch-path" data-delay="3.1" data-duration="0.4"
-                d="M 238 653 L 236 672 M 332 650 L 336 669" />
+            <!-- 5. BÓ HOA SEN TRÊN TAY CÔ -->
+            <path class="sketch-path bold" d="M 294 268 C 282 243, 294 220, 323 200 C 330 227, 324 252, 294 268 Z" />
+            <path class="sketch-path bold" d="M 322 308 C 318 282, 333 263, 358 250 C 362 278, 350 302, 322 308 Z" />
+            <path class="sketch-path bold" d="M 330 342 C 332 321, 348 310, 367 308 C 369 328, 355 344, 330 342 Z" />
+            <path class="sketch-path" d="M 297 309 C 292 325, 304 334, 319 327 C 324 316, 311 304, 297 309 Z" />
+            <path class="sketch-path thin" d="M 297 309 C 306 314, 314 320, 319 327" />
+            <!-- Các cuống sen -->
+            <path class="sketch-path" d="M 296 268 C 284 318, 278 392, 270 462" />
+            <path class="sketch-path" d="M 322 308 C 305 358, 288 412, 273 462" />
+            <path class="sketch-path" d="M 330 342 C 310 382, 292 425, 276 462" />
+            <path class="sketch-path thin" d="M 306 330 C 294 374, 282 420, 271 460" />
 
-          <!-- NHÓM 6: NÉT CHỮ THƯ PHÁP "20/11" TỰ VẼ -->
-          <g transform="translate(18, 42)">
-            <text x="10" y="310" font-family="'Dancing Script', cursive" font-size="48" font-weight="700"
-                  fill="none" stroke="#8c622b" stroke-width="2.2" class="sketch-path"
-                  data-delay="3.0" data-duration="1.2">20/11</text>
-            <path class="sketch-path thin" stroke="#c59b27" data-delay="3.4" data-duration="0.8"
-                  d="M 5 322 C 45 312, 95 330, 135 314" />
+            <!-- 6. CÁNH TAY PHẢI ĐẦY ĐỦ ÔM BÓ HOA (ĐÃ SỬA CHÍNH XÁC VÙNG KHOANH ĐỎ) -->
+            <!-- Bờ vai phải lượn ra bắp tay trên -->
+            <path class="sketch-path bold" d="M 235 232 C 256 232, 282 222, 296 232 C 308 242, 312 260, 311 278" />
+            <!-- Cạnh ngoài bắp tay phải nối từ dưới búp sen trên xuống khuỷu tay -->
+            <path class="sketch-path bold" d="M 314 265 C 322 292, 326 322, 328 348" />
+            <!-- Nếp eo phải và nách áo bên trong cánh tay phải -->
+            <path class="sketch-path" d="M 282 282 C 288 308, 292 330, 295 352" />
+            <!-- Đường gấu tay áo lửng (Sleeve cuff) ngang khuỷu tay phải (nét ngang trong vòng đỏ) -->
+            <path class="sketch-path bold" d="M 293 348 C 306 346, 318 349, 329 354" />
+            <!-- Cẳng tay phải (Forearm) từ ống tay áo ôm chéo xuống bàn tay -->
+            <path class="sketch-path bold" d="M 326 353 C 315 392, 296 432, 276 465" />
+            <path class="sketch-path bold" d="M 297 350 C 288 386, 276 422, 264 456" />
+            <!-- Đôi bàn tay đan nhẹ nâng cuống sen -->
+            <path class="sketch-path bold" d="M 260 470 C 256 479, 260 486, 268 484 C 278 479, 284 468, 277 459 C 270 461, 264 465, 260 470 Z" />
+            <!-- Đuôi cuống sen lấp ló dưới bàn tay -->
+            <path class="sketch-path" d="M 274 479 L 281 500 M 279 476 L 288 496 M 283 473 L 293 490" />
+
+            <!-- 7. TÀ ÁO DÀI THƯỚT THA & QUẦN LỤA -->
+            <path class="sketch-path bold" d="M 206 420 C 185 488, 162 578, 148 648 C 224 654, 304 655, 376 646 C 368 564, 350 472, 316 392" />
+            <path class="sketch-path bold" d="M 202 414 C 154 484, 96 558, 46 618 C 68 634, 92 645, 114 652" />
+            <path class="sketch-path" d="M 205 418 C 166 492, 134 574, 112 666" />
+            <path class="sketch-path thin" d="M 204 422 C 186 456, 168 492, 152 524" />
+            <path class="sketch-path" d="M 238 653 L 236 672 M 332 650 L 336 669" />
+
+            <!-- 8. NÉT VẼ SỐ "20/11" BẰNG VECTOR ĐỂ BÚT CHÌ VẼ TRỰC TIẾP -->
+            <!-- Số 2 -->
+            <path class="sketch-path gold" d="M 38 345 C 38 332, 62 332, 60 347 C 58 360, 35 372, 34 382 L 64 382" />
+            <!-- Số 0 -->
+            <path class="sketch-path gold" d="M 86 336 C 72 336, 70 382, 86 382 C 102 382, 102 336, 86 336 Z" />
+            <!-- Dấu gạch chéo / -->
+            <path class="sketch-path gold" d="M 122 332 L 104 388" />
+            <!-- Số 1 thứ nhất -->
+            <path class="sketch-path gold" d="M 128 344 L 138 335 L 132 382" />
+            <!-- Số 1 thứ hai -->
+            <path class="sketch-path gold" d="M 148 344 L 158 335 L 152 382" />
+            <!-- Nét gạch chân nghệ thuật dưới chữ 20/11 -->
+            <path class="sketch-path gold" d="M 26 394 C 66 384, 116 400, 168 386" />
+          </g>
+
+          <!-- CON TRỎ BÀN TAY CẦM BÚT CHÌ (Đặt gốc tọa độ 0,0 ngay đầu ngòi chì) -->
+          <g id="drawing-hand">
+            <!-- Đốm sáng nhỏ ở đầu ngòi bút -->
+            <circle cx="0" cy="0" r="3" fill="#d35400" opacity="0.6" />
+            <!-- Ngòi chì đen -->
+            <polygon points="0,0 5,-12 12,-5" fill="#1e1d1c" />
+            <!-- Phần gỗ vát đầu bút chì -->
+            <polygon points="5,-12 14,-28 28,-14 12,-5" fill="#e6be8a" stroke="#5c4033" stroke-width="0.8" />
+            <!-- Thân bút chì vàng -->
+            <polygon points="14,-28 82,-96 96,-82 28,-14" fill="#f39c12" stroke="#5c4033" stroke-width="1" />
+            <line x1="19" y1="-23" x2="87" y2="-91" stroke="#e67e22" stroke-width="2" />
+            <!-- Đầu tẩy hồng và khoen kim loại -->
+            <polygon points="82,-96 92,-106 106,-92 96,-82" fill="#bdc3c7" stroke="#5c4033" stroke-width="0.8" />
+            <polygon points="92,-106 104,-118 118,-104 106,-92" fill="#e88b9c" stroke="#5c4033" stroke-width="0.8" />
+            <!-- Ngón cái và ngón trỏ của bàn tay đang cầm bút -->
+            <path d="M 22,-32 C 26,-48 45,-55 62,-48 C 78,-42 110,-52 135,-35 L 125,10 C 95,5 68,-2 48,-8 C 32,-12 24,-18 28,-24 Z"
+                  fill="#f7d3ba" stroke="#8d5524" stroke-width="1.3" />
+            <!-- Ngón trỏ bấm lên thân bút -->
+            <path d="M 22,-32 C 15,-28 16,-19 25,-18 C 36,-17 48,-24 55,-32"
+                  fill="#f7d3ba" stroke="#8d5524" stroke-width="1.3" />
           </g>
         </svg>
       </div>
 
-      <!-- CỘT PHẢI: BỨC TÂM THƯ ĐỘNG -->
-      <div class="letter-column">
+      <!-- CỘT PHẢI: TÂM THƯ TRI ÂN -->
+      <div class="letter-column" id="letterColumn">
         <h1 class="letter-title">Gửi Người Gieo Ánh Sáng...</h1>
 
         <p class="letter-paragraph p-1">
@@ -489,16 +382,20 @@
           <div class="signature-text">Trọn vẹn lòng tri ân — 20/11</div>
         </div>
 
-        <button class="replay-btn" id="replayBtn">✨ Vẽ lại bức tranh kỷ niệm</button>
+        <div class="action-bar">
+          <button class="btn-action" id="replaySketchBtn">✍️ Xem bàn tay vẽ lại</button>
+          <button class="btn-action" id="resetBoardBtn">🧹 Lau lại bảng phấn</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- LỚP 2 & 3: CANVAS BẢNG ĐEN PHỦ BỤI PHẤN & HẠT SÁNG -->
+  <!-- LỚP 2 & 3: CANVAS BẢNG ĐEN, KHĂN LAU BẢNG & BỤI PHẤN -->
   <canvas id="scratch-canvas"></canvas>
   <canvas id="particle-canvas"></canvas>
+  <div id="chalk-eraser"></div>
   <div class="chalk-prompt" id="chalkPrompt">
-    Chạm và di chuyển nhẹ để lau lớp bụi phấn thời gian...
+    Nhấn giữ và kéo chiếc khăn để lau sạch bảng phấn...
   </div>
 
   <script>
@@ -506,233 +403,285 @@
     const sCtx = scratchCanvas.getContext('2d', { willReadFrequently: true });
     const particleCanvas = document.getElementById('particle-canvas');
     const pCtx = particleCanvas.getContext('2d');
+    const chalkEraser = document.getElementById('chalk-eraser');
     const cardFrame = document.getElementById('cardFrame');
+    const letterColumn = document.getElementById('letterColumn');
+    const colorTint = document.getElementById('colorTint');
     const chalkPrompt = document.getElementById('chalkPrompt');
-    const replayBtn = document.getElementById('replayBtn');
+    const drawingHand = document.getElementById('drawing-hand');
+    const replaySketchBtn = document.getElementById('replaySketchBtn');
+    const resetBoardBtn = document.getElementById('resetBoardBtn');
 
-    let isDrawing = false;
-    let isRevealed = false;
-    let strokeCounter = 0;
+    let isErasing = false;
+    let isBoardCleared = false;
+    let lastX = null;
+    let lastY = null;
+    let strokeCount = 0;
     let particles = [];
-    let audioCtx = null;
+    let drawingAnimId = null;
 
-    // 1. CHUẨN BỊ ĐỘ DÀI VECTOR CHO HIỆU ỨNG TỰ VẼ CÔ GIÁO
-    const sketchPaths = document.querySelectorAll('.sketch-path');
-    function initSketchPaths() {
-      sketchPaths.forEach(path => {
-        const length = path.getTotalLength ? path.getTotalLength() : 400;
-        path.style.transition = 'none';
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
+    // =========================================================================
+    // 1. ENGINE BÀN TAY CẦM BÚT CHÌ VẼ TỪNG NÉT (REAL-TIME PATH FOLLOWER)
+    // =========================================================================
+    const sketchPaths = Array.from(document.querySelectorAll('#sketchGroup .sketch-path'));
+    let pathMetrics = [];
+
+    function preparePathsForDrawing() {
+      if (drawingAnimId) cancelAnimationFrame(drawingAnimId);
+      colorTint.classList.remove('show-color');
+      drawingHand.style.opacity = '0';
+
+      pathMetrics = sketchPaths.map(path => {
+        const len = path.getTotalLength();
+        path.style.strokeDasharray = len;
+        path.style.strokeDashoffset = len;
+        return { path, len };
       });
     }
 
-    function playSketchAnimation() {
-      initSketchPaths();
-      // Force reflow
-      void cardFrame.offsetWidth;
-      sketchPaths.forEach(path => {
-        const delay = path.getAttribute('data-delay') || 0;
-        const duration = path.getAttribute('data-duration') || 1;
-        path.style.transition = `stroke-dashoffset ${duration}s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s`;
-        path.style.strokeDashoffset = '0';
-      });
+    function startHandDrawingSequence() {
+      preparePathsForDrawing();
+      drawingHand.style.opacity = '1';
+
+      let currentIdx = 0;
+      let currentDist = 0;
+      const drawSpeed = 16; // Tốc độ ngòi chì chạy (px mỗi frame ở 60fps)
+
+      function stepDrawing() {
+        if (currentIdx >= pathMetrics.length) {
+          // Đã vẽ xong nét cuối cùng -> Ẩn bàn tay, hiện màu hoa sen và hiện tâm thư
+          drawingHand.style.opacity = '0';
+          colorTint.classList.add('show-color');
+          letterColumn.classList.add('show-text');
+          return;
+        }
+
+        const item = pathMetrics[currentIdx];
+        currentDist += drawSpeed;
+
+        if (currentDist >= item.len) {
+          item.path.style.strokeDashoffset = 0;
+          const endPt = item.path.getPointAtLength(item.len);
+          updateHandPosition(item.path, endPt.x, endPt.y);
+          currentIdx++;
+          currentDist = 0;
+        } else {
+          item.path.style.strokeDashoffset = item.len - currentDist;
+          const pt = item.path.getPointAtLength(currentDist);
+          updateHandPosition(item.path, pt.x, pt.y);
+        }
+
+        drawingAnimId = requestAnimationFrame(stepDrawing);
+      }
+
+      drawingAnimId = requestAnimationFrame(stepDrawing);
     }
 
-    // 2. KHỞI TẠO MẶT BẢNG ĐEN PHỦ BỤI PHẤN
-    function setupCanvases() {
+    function updateHandPosition(pathEl, x, y) {
+      // Độ rung nhẹ tự nhiên của cổ tay khi phác họa chì
+      const jitterX = (Math.random() - 0.5) * 1.2;
+      const jitterY = (Math.random() - 0.5) * 1.2;
+      drawingHand.setAttribute('transform', `translate(${x + jitterX}, ${y + jitterY})`);
+    }
+
+    // =========================================================================
+    // 2. ENGINE KHĂN LAU BẢNG ĐEN THỰC TẾ (REAL CHALKBOARD ERASER)
+    // =========================================================================
+    function initChalkboard() {
       scratchCanvas.width = particleCanvas.width = window.innerWidth;
       scratchCanvas.height = particleCanvas.height = window.innerHeight;
-
-      if (!isRevealed) {
-        drawChalkboardSurface();
-      }
+      if (!isBoardCleared) renderChalkSurface();
     }
 
-    function drawChalkboardSurface() {
+    function renderChalkSurface() {
       const w = scratchCanvas.width;
       const h = scratchCanvas.height;
       sCtx.globalCompositeOperation = 'source-over';
 
-      // Nền bảng xanh đen trầm
-      const boardGrad = sCtx.createRadialGradient(w/2, h/2, 50, w/2, h/2, Math.max(w, h)*0.7);
-      boardGrad.addColorStop(0, '#24302a');
-      boardGrad.addColorStop(1, '#141b17');
+      // Màu mặt bảng xanh đen cổ điển
+      const boardGrad = sCtx.createRadialGradient(w/2, h/2, 60, w/2, h/2, Math.max(w, h)*0.75);
+      boardGrad.addColorStop(0, '#233329');
+      boardGrad.addColorStop(1, '#121a15');
       sCtx.fillStyle = boardGrad;
       sCtx.fillRect(0, 0, w, h);
 
-      // Tạo các vệt phấn mờ và hạt bụi phấn trên mặt bảng
-      sCtx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-      for (let i = 0; i < 3500; i++) {
-        const x = Math.random() * w;
-        const y = Math.random() * h;
-        const r = Math.random() * 2.2;
+      // Tạo các vệt phấn sọc ngang dọc mờ như bảng vừa học xong
+      sCtx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+      sCtx.lineWidth = 45;
+      for (let i = 0; i < 18; i++) {
         sCtx.beginPath();
-        sCtx.arc(x, y, r, 0, Math.PI * 2);
-        sCtx.fill();
+        sCtx.moveTo(Math.random() * w, Math.random() * h);
+        sCtx.lineTo(Math.random() * w, Math.random() * h);
+        sCtx.stroke();
       }
 
-      // Dòng chữ phấn mờ chính giữa bảng
+      // Hạt bụi phấn phủ mịn
+      sCtx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      for (let i = 0; i < 3200; i++) {
+        sCtx.fillRect(Math.random() * w, Math.random() * h, 2, 2);
+      }
+
+      // Chữ viết phấn trên mặt bảng
       sCtx.save();
       sCtx.font = "600 32px 'Cormorant Garamond', serif";
-      sCtx.fillStyle = "rgba(255, 255, 255, 0.78)";
+      sCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
       sCtx.textAlign = "center";
-      sCtx.fillText("“Có những điều thời gian phủ mờ,", w / 2, h / 2 - 18);
-      sCtx.fillText("nhưng lòng biết ơn thì luôn sáng rõ...”", w / 2, h / 2 + 24);
+      sCtx.fillText("“Có những điều thời gian phủ mờ,", w / 2, h / 2 - 20);
+      sCtx.fillText("nhưng lòng biết ơn thì luôn sáng rõ...”", w / 2, h / 2 + 22);
       sCtx.restore();
     }
 
-    // 3. HIỆU ỨNG ÂM THANH PIANO DỊU NHẸ BẰNG WEB AUDIO API (Không cần file MP3 ngoài)
-    function playGentleChime() {
-      if (audioCtx) return;
-      try {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const notes = [261.63, 329.63, 392.00, 523.25, 659.25]; // Hợp âm Đô trưởng ấm áp
-        notes.forEach((freq, idx) => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.35);
+    function eraseBoardStroke(x, y) {
+      if (isBoardCleared) return;
 
-          gain.gain.setValueAtTime(0.001, audioCtx.currentTime + idx * 0.35);
-          gain.gain.exponentialRampToValueAtTime(0.06, audioCtx.currentTime + idx * 0.35 + 0.1);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.35 + 2.8);
-
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(audioCtx.currentTime + idx * 0.35);
-          osc.stop(audioCtx.currentTime + idx * 0.35 + 3);
-        });
-      } catch (e) {}
-    }
-
-    // 4. CƠ CHẾ LAU BẢNG MỀM MẠI & TẠO HẠT BỤI SÁNG
-    function scratchAt(x, y) {
-      if (isRevealed) return;
-
+      // Vệt lau liền mạch bằng lineTo (không bị đứt khúc khi kéo chuột nhanh)
+      sCtx.save();
       sCtx.globalCompositeOperation = 'destination-out';
-      const radius = Math.max(window.innerWidth, window.innerHeight) * 0.065;
-      const brushGrad = sCtx.createRadialGradient(x, y, radius * 0.1, x, y, radius);
-      brushGrad.addColorStop(0, 'rgba(0, 0, 0, 1)');
-      brushGrad.addColorStop(0.6, 'rgba(0, 0, 0, 0.65)');
-      brushGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      sCtx.lineCap = 'round';
+      sCtx.lineJoin = 'round';
+      sCtx.lineWidth = Math.max(window.innerWidth, window.innerHeight) * 0.095;
+      sCtx.shadowBlur = 25;
+      sCtx.shadowColor = 'rgba(0,0,0,1)';
 
-      sCtx.fillStyle = brushGrad;
       sCtx.beginPath();
-      sCtx.arc(x, y, radius, 0, Math.PI * 2);
-      sCtx.fill();
+      if (lastX !== null && lastY !== null) {
+        sCtx.moveTo(lastX, lastY);
+        sCtx.lineTo(x, y);
+      } else {
+        sCtx.arc(x, y, sCtx.lineWidth / 2, 0, Math.PI * 2);
+      }
+      sCtx.stroke();
+      sCtx.restore();
 
-      // Sinh hạt bụi phấn vàng lấp lánh tại điểm lau
-      for (let i = 0; i < 4; i++) {
+      lastX = x;
+      lastY = y;
+
+      // Sinh hạt bụi phấn trắng & vàng rơi nhẹ xuống
+      for (let i = 0; i < 5; i++) {
         particles.push({
-          x: x + (Math.random() - 0.5) * 35,
-          y: y + (Math.random() - 0.5) * 35,
-          vx: (Math.random() - 0.5) * 1.6,
-          vy: -Math.random() * 1.8 - 0.4,
-          size: Math.random() * 3.2 + 1,
-          alpha: 1,
-          color: Math.random() > 0.4 ? '#ffeaa7' : '#ffffff'
+          x: x + (Math.random() - 0.5) * 70,
+          y: y + (Math.random() - 0.5) * 40,
+          vx: (Math.random() - 0.5) * 2.2,
+          vy: Math.random() * 1.8 + 0.3, // Bụi phấn rơi nhẹ xuống theo trọng lực
+          size: Math.random() * 3.5 + 1,
+          alpha: 0.9,
+          color: Math.random() > 0.35 ? '#ffffff' : '#ffeaa7'
         });
       }
 
-      strokeCounter++;
-      if (strokeCounter % 16 === 0) {
-        checkClearedPercentage();
+      strokeCount++;
+      if (strokeCount % 14 === 0) checkErasedRatio();
+    }
+
+    function checkErasedRatio() {
+      const data = sCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
+      let cleared = 0, total = 0;
+      for (let i = 3; i < data.length; i += 80) {
+        total++;
+        if (data[i] < 110) cleared++;
+      }
+      // Khi lau sạch khoảng 40% bảng -> Mở hoàn toàn và bắt đầu cho bàn tay vẽ cô giáo
+      if (cleared / total > 0.40) {
+        completeBoardErasing();
       }
     }
 
-    // Kiểm tra tỷ lệ lau bảng (Đạt ~42% sẽ tự động mở toàn bộ và kích hoạt vẽ cô giáo)
-    function checkClearedPercentage() {
-      const imgData = sCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
-      let cleared = 0;
-      let totalSampled = 0;
-      const step = 64; // Lấy mẫu cách quãng để đạt 60fps
-
-      for (let i = 3; i < imgData.length; i += step) {
-        totalSampled++;
-        if (imgData[i] < 128) cleared++;
-      }
-
-      if (cleared / totalSampled > 0.42) {
-        triggerFullReveal();
-      }
-    }
-
-    function triggerFullReveal() {
-      if (isRevealed) return;
-      isRevealed = true;
+    function completeBoardErasing() {
+      if (isBoardCleared) return;
+      isBoardCleared = true;
+      chalkEraser.style.opacity = '0';
       scratchCanvas.style.opacity = '0';
       chalkPrompt.style.opacity = '0';
 
       setTimeout(() => {
         scratchCanvas.style.display = 'none';
         chalkPrompt.style.display = 'none';
-      }, 1500);
+      }, 1200);
 
-      // Kích hoạt hiệu ứng vẽ cô giáo + 20/11 + tâm thư
       cardFrame.classList.add('is-revealed');
-      playSketchAnimation();
+      setTimeout(startHandDrawingSequence, 450);
     }
 
-    // 5. VÒNG LẶP RENDER HẠT SÁNG
-    function animateParticles() {
+    // Vòng lặp hạt bụi phấn
+    function renderParticles() {
       pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.alpha -= 0.016;
-
-        if (p.alpha <= 0) {
-          particles.splice(i, 1);
-          continue;
-        }
+        p.alpha -= 0.018;
+        if (p.alpha <= 0) { particles.splice(i, 1); continue; }
 
         pCtx.save();
         pCtx.globalAlpha = p.alpha;
         pCtx.fillStyle = p.color;
-        pCtx.shadowBlur = 8;
+        pCtx.shadowBlur = 6;
         pCtx.shadowColor = '#ffd56b';
         pCtx.beginPath();
         pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         pCtx.fill();
         pCtx.restore();
       }
-      requestAnimationFrame(animateParticles);
+      requestAnimationFrame(renderParticles);
     }
 
-    // SỰ KIỆN CHUỘT & CẢM ỨNG ĐIỆN THOẠI
+    // Sự kiện điều khiển khăn lau bảng
+    function moveEraserUI(x, y) {
+      if (isBoardCleared) return;
+      chalkEraser.style.opacity = '1';
+      const angle = lastX ? Math.max(-28, Math.min(28, (x - lastX) * 0.9)) : -12;
+      chalkEraser.style.left = x + 'px';
+      chalkEraser.style.top = y + 'px';
+      chalkEraser.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    }
+
     scratchCanvas.addEventListener('pointerdown', (e) => {
-      isDrawing = true;
-      playGentleChime();
-      scratchAt(e.clientX, e.clientY);
+      isErasing = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      moveEraserUI(e.clientX, e.clientY);
+      eraseBoardStroke(e.clientX, e.clientY);
     });
 
     window.addEventListener('pointermove', (e) => {
-      if (!isDrawing) return;
-      scratchAt(e.clientX, e.clientY);
+      if (!isBoardCleared) moveEraserUI(e.clientX, e.clientY);
+      if (!isErasing) return;
+      eraseBoardStroke(e.clientX, e.clientY);
     });
 
     window.addEventListener('pointerup', () => {
-      isDrawing = false;
+      isErasing = false;
+      lastX = null;
+      lastY = null;
     });
 
-    // Nút bấm xem lại hiệu ứng tự vẽ cô giáo
-    replayBtn.addEventListener('click', () => {
+    // Nút bấm vẽ lại & lau lại bảng
+    replaySketchBtn.addEventListener('click', () => {
+      letterColumn.classList.remove('show-text');
+      startHandDrawingSequence();
+    });
+
+    resetBoardBtn.addEventListener('click', () => {
+      isBoardCleared = false;
+      strokeCount = 0;
       cardFrame.classList.remove('is-revealed');
-      initSketchPaths();
+      letterColumn.classList.remove('show-text');
+      preparePathsForDrawing();
+      scratchCanvas.style.display = 'block';
+      chalkPrompt.style.display = 'block';
+      renderChalkSurface();
       setTimeout(() => {
-        cardFrame.classList.add('is-revealed');
-        playSketchAnimation();
-      }, 150);
+        scratchCanvas.style.opacity = '1';
+        chalkPrompt.style.opacity = '1';
+      }, 50);
     });
 
-    window.addEventListener('resize', setupCanvases);
+    window.addEventListener('resize', initChalkboard);
 
-    // Khởi chạy ban đầu
-    initSketchPaths();
-    setupCanvases();
-    animateParticles();
+    // Khởi tạo
+    preparePathsForDrawing();
+    initChalkboard();
+    renderParticles();
   </script>
 </body>
 </html>
